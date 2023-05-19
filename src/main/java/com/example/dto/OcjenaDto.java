@@ -1,9 +1,11 @@
 package com.example.dto;
 
+import java.util.List;
+
 public class OcjenaDto {
     public int ocjena;
     public String napomena;
-    public UcenikDto ucenik;
+    public List<UcenikDto> ucenici;
 
     public int getOcjena() {
         return ocjena;
@@ -21,11 +23,11 @@ public class OcjenaDto {
         this.napomena = napomena;
     }
 
-    public UcenikDto getUcenik() {
-        return ucenik;
+    public List<UcenikDto> getUcenici() {
+        return ucenici;
     }
 
-    public void setUcenik(UcenikDto ucenik) {
-        this.ucenik = ucenik;
+    public void setUcenici(List<UcenikDto> ucenici) {
+        this.ucenici = ucenici;
     }
 }

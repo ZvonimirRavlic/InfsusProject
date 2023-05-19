@@ -50,7 +50,8 @@ public class IspitServiceImpl implements IspitService {
                 .orElseThrow(() -> new RuntimeException("Ne postoji ispit sa tim id-em za ovaj predmet!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
         final List<Predaje> predmeti = predajeRepository.findAll();
-        return mapper.map(ispit, ocjene, predmeti);
+        final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
+        return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
 
     @Override
@@ -59,8 +60,8 @@ public class IspitServiceImpl implements IspitService {
                 .orElseThrow(() -> new RuntimeException("Ne postoji sljedeci ispit!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
         final List<Predaje> predmeti = predajeRepository.findAll();
-
-        return mapper.map(ispit, ocjene, predmeti);
+        final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
+        return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
 
     @Override
@@ -72,7 +73,8 @@ public class IspitServiceImpl implements IspitService {
         if (predmeti.isEmpty()) {
             throw new RuntimeException("Nema predmeta!");
         }
-        return mapper.map(ispit, ocjene, predmeti);
+        final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
+        return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class IspitServiceImpl implements IspitService {
         try {
             return getIspitSljedeci(predmetId, ispitId);
         } catch (Exception e) {
-            throw new RuntimeException("Izbrisali ste sve predmete!");
+            throw new RuntimeException("Izbrisali ste sve ispite!");
         }
     }
 
@@ -116,7 +118,8 @@ public class IspitServiceImpl implements IspitService {
         ispitRepository.saveAndFlush(ispit);
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId.getIspitId(), ispitId.getPredmetId());
         final List<Predaje> predmeti = predajeRepository.findAll();
-        return mapper.map(ispit, ocjene, predmeti);
+        final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(ispitCreate.getPredmetId());
+        return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
 
 
@@ -143,7 +146,8 @@ public class IspitServiceImpl implements IspitService {
         ispitRepository.saveAndFlush(ispit);
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId.getIspitId(), ispitId.getPredmetId());
         final List<Predaje> predmeti = predajeRepository.findAll();
-        return mapper.map(ispit, ocjene, predmeti);
+        final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(ispitUpdate.getPredmetId());
+        return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
 
     @Override

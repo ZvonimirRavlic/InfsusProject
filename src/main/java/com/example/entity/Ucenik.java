@@ -2,6 +2,8 @@ package com.example.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Ucenik {
     @Id
@@ -39,4 +41,17 @@ public class Ucenik {
         this.id = id;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ucenik ucenik = (Ucenik) o;
+        return Objects.equals(id, ucenik.id) && Objects.equals(korisnik, ucenik.korisnik) && Objects.equals(razredid, ucenik.razredid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, korisnik, razredid);
+    }
 }
