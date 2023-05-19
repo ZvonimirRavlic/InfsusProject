@@ -59,7 +59,7 @@ public class IspitServiceImpl implements IspitService {
         final Ispit ispit = ispitRepository.findFirstById_IspitIdGreaterThanAndId_PredmetIdOrderById_IspitIdAsc(ispitId, predmetId)
                 .orElseThrow(() -> new RuntimeException("Ne postoji sljedeci ispit!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
-        final List<Predaje> predmeti = predajeRepository.findAll();
+        final List<Predmet> predmeti = predmetRepository.findAll();
         final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
         return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
@@ -69,7 +69,7 @@ public class IspitServiceImpl implements IspitService {
         final Ispit ispit = ispitRepository.findFirstById_IspitIdLessThanAndId_PredmetIdOrderById_IspitIdDesc(ispitId, predmetId)
                 .orElseThrow(() -> new RuntimeException("Ne postoji prosli ispit!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
-        final List<Predaje> predmeti = predajeRepository.findAll();
+        final List<Predmet> predmeti = predmetRepository.findAll();
         if (predmeti.isEmpty()) {
             throw new RuntimeException("Nema predmeta!");
         }
@@ -117,7 +117,7 @@ public class IspitServiceImpl implements IspitService {
                         new RuntimeException("Ne postoji predmet za koji zelite stvoriti ispit!")));
         ispitRepository.saveAndFlush(ispit);
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId.getIspitId(), ispitId.getPredmetId());
-        final List<Predaje> predmeti = predajeRepository.findAll();
+        final List<Predmet> predmeti = predmetRepository.findAll();
         final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(ispitCreate.getPredmetId());
         return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
@@ -145,7 +145,7 @@ public class IspitServiceImpl implements IspitService {
                         new RuntimeException("Ne postoji predmet za koji zelite stvoriti ispit!")));
         ispitRepository.saveAndFlush(ispit);
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId.getIspitId(), ispitId.getPredmetId());
-        final List<Predaje> predmeti = predajeRepository.findAll();
+        final List<Predmet> predmeti = predmetRepository.findAll();
         final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(ispitUpdate.getPredmetId());
         return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
