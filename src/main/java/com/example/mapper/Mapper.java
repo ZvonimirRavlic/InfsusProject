@@ -27,8 +27,9 @@ public class Mapper {
         predmetiDto.remove(predmetDto);
         predmetiDto.add(0, predmetDto);
         ispitDto.setPredmeti(predmetiDto);
-        ispitDto.setUcenici(ucenici.stream().map(this::map).toList());
-        Collections.sort(ispitDto.getUcenici());
+        final List<UcenikDto> ucenikDtos = new java.util.ArrayList<>(ucenici.stream().map(this::map).toList());
+        Collections.sort(ucenikDtos);
+        ispitDto.setUcenici(ucenikDtos);
         return ispitDto;
     }
 
