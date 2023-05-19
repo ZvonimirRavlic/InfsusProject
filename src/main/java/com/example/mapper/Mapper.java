@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class Mapper {
 
-    public IspitDto map(final Ispit ispit, final List<Piše> ocjene, final List<Predaje> predmeti, List<Ucenik> ucenici) {
+    public IspitDto map(final Ispit ispit, final List<Piše> ocjene, final List<Predmet> predmeti, List<Ucenik> ucenici) {
         final IspitDto ispitDto = new IspitDto();
         ispitDto.setDatum(ispit.getDatum());
         ispitDto.setNapomena(ispit.getNapomena());

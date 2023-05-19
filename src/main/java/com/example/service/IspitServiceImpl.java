@@ -49,7 +49,7 @@ public class IspitServiceImpl implements IspitService {
         final Ispit ispit = ispitRepository.findById(ispitIdEntity)
                 .orElseThrow(() -> new RuntimeException("Ne postoji ispit sa tim id-em za ovaj predmet!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
-        final List<Predaje> predmeti = predajeRepository.findAll();
+        final List<Predmet> predmeti = predmetRepository.findAll();
         final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
         return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
