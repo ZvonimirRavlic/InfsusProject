@@ -15,6 +15,7 @@ public class IspitDto {
     public String napomena;
     public List<PredmetDto> predmeti;
     public List<OcjenaDto> ocjene;
+    public List<UcenikDto> ucenici;
 
 
     public IspitId getIspitId() {
@@ -63,5 +64,13 @@ public class IspitDto {
 
     public void setOcjene(List<OcjenaDto> ocjene) {
         this.ocjene = ocjene;
+    }
+
+    public List<UcenikDto> getUcenici() {
+        return ucenici;
+    }
+
+    public void setUcenici(List<UcenikDto> ucenici) {
+        this.ucenici = ucenici;
     }
 }

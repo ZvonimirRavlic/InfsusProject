@@ -2,7 +2,7 @@ package com.example.dto;
 
 import java.util.Objects;
 
-public class UcenikDto {
+public class UcenikDto implements Comparable<UcenikDto> {
     public int korisnikId;
     public String imePrezime;
 
@@ -33,5 +33,10 @@ public class UcenikDto {
     @Override
     public int hashCode() {
         return Objects.hash(korisnikId, imePrezime);
+    }
+
+    @Override
+    public int compareTo(UcenikDto u) {
+        return getImePrezime().compareTo(u.getImePrezime());
     }
 }

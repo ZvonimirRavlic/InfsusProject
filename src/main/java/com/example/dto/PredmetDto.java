@@ -2,36 +2,36 @@ package com.example.dto;
 
 import java.util.Objects;
 
-public class PredmetDto {
-        private int predmetId;
-        private String naziv;
-        private int godina;
+public class PredmetDto implements Comparable<PredmetDto> {
+    private int predmetId;
+    private String naziv;
+    private int godina;
 
-        private String nazivGodina;
+    private String nazivGodina;
 
-        public int getPredmetId() {
-            return predmetId;
-        }
+    public int getPredmetId() {
+        return predmetId;
+    }
 
-        public void setPredmetId(int predmetId) {
-            this.predmetId = predmetId;
-        }
+    public void setPredmetId(int predmetId) {
+        this.predmetId = predmetId;
+    }
 
-        public String getNaziv() {
-            return naziv;
-        }
+    public String getNaziv() {
+        return naziv;
+    }
 
-        public void setNaziv(String naziv) {
-            this.naziv = naziv;
-        }
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 
-        public int getGodina() {
-            return godina;
-        }
+    public int getGodina() {
+        return godina;
+    }
 
-        public void setGodina(int godina) {
-            this.godina = godina;
-        }
+    public void setGodina(int godina) {
+        this.godina = godina;
+    }
 
     public String getNazivGodina() {
         return nazivGodina;
@@ -52,5 +52,10 @@ public class PredmetDto {
     @Override
     public int hashCode() {
         return Objects.hash(predmetId);
+    }
+
+    @Override
+    public int compareTo(PredmetDto o) {
+        return getNazivGodina().compareTo(o.getNazivGodina());
     }
 }

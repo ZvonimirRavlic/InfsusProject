@@ -21,8 +21,14 @@ public class Mapper {
         ispitDto.setIspitId(ispit.getId());
         ispitDto.setOcjene(ocjene.stream().map(ocjena -> map(ocjena, ucenici)).toList());
         List<PredmetDto> predmetiDto = new java.util.ArrayList<>(predmeti.stream().map(this::map).toList());
-        Collections.swap(predmetiDto, 0, predmetiDto.indexOf(map(ispit.getPredmetid())));
+        Collections.sort(predmetiDto);
+        final int indexOfPredmet = predmetiDto.indexOf(map(ispit.getPredmetid()));
+        final PredmetDto predmetDto = predmetiDto.get(indexOfPredmet);
+        predmetiDto.remove(predmetDto);
+        predmetiDto.add(0, predmetDto);
         ispitDto.setPredmeti(predmetiDto);
+        ispitDto.setUcenici(ucenici.stream().map(this::map).toList());
+        Collections.sort(ispitDto.getUcenici());
         return ispitDto;
     }
 
@@ -32,6 +38,11 @@ public class Mapper {
         ocjenaDto.setNapomena(ocjena.getNapomena());
         ocjenaDto.setOcjena(ocjena.getOcjena());
         List<UcenikDto> uceniciDto = new java.util.ArrayList<>(ucenici.stream().map(this::map).toList());
+        final int indexOfPredmet = uceniciDto.indexOf(map(ocjena.getKorisnikId()));
+        final UcenikDto ucenikDto = uceniciDto.get(indexOfPredmet);
+        uceniciDto.remove(ucenikDto);
+        uceniciDto.add(0, ucenikDto);
+        ocjenaDto.setUcenici(uceniciDto);
         Collections.swap(uceniciDto, 0, uceniciDto.indexOf(map(ocjena.getKorisnikId())));
         ocjenaDto.setUcenici(uceniciDto);
         return ocjenaDto;
