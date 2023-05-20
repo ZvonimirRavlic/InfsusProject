@@ -21,6 +21,9 @@ public interface Controler {
     @PutMapping(value = "/predmet", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<PredmetDto> updatePredmete(@RequestBody PredmetUpdate predmetUpdate);
 
+    @GetMapping("/ispiti")
+    List<IspitiResp> getIspiti();
+
     @GetMapping("/ispiti/{predmetId}/{ispitId}")
     IspitDto getIspit(@PathVariable Integer predmetId, @PathVariable Integer ispitId);
 

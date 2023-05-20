@@ -1,9 +1,6 @@
 package com.example.mapper;
 
-import com.example.dto.IspitDto;
-import com.example.dto.OcjenaDto;
-import com.example.dto.PredmetDto;
-import com.example.dto.UcenikDto;
+import com.example.dto.*;
 import com.example.entity.*;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +9,17 @@ import java.util.List;
 
 @Component
 public class Mapper {
+
+    public List<IspitiResp> mapIspiti(List<Ispit> ispiti) {
+        return ispiti.stream().map(ispit -> {
+            final IspitiResp ispitResp = new IspitiResp();
+            ispitResp.setIspitId(ispit.getId());
+            ispitResp.setNapomena(ispit.getNapomena());
+            ispitResp.setVrsta(ispit.getVrsta());
+            ispitResp.setDatum(ispit.getDatum());
+            return ispitResp;
+        }).toList();
+    }
 
     public IspitDto map(final Ispit ispit, final List<Piše> ocjene, final List<Predmet> predmeti, List<Ucenik> ucenici) {
         final IspitDto ispitDto = new IspitDto();

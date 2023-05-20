@@ -1,14 +1,15 @@
 package com.example.service;
 
-import com.example.dto.IspitCreate;
-import com.example.dto.IspitDto;
-import com.example.dto.IspitUpdate;
-import com.example.dto.OcjenaCreate;
+import com.example.dto.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface IspitService {
 
+
+    List<IspitiResp> getIspiti();
 
     IspitDto getIspit(Integer predmetId, Integer ispitId);
 
@@ -22,8 +23,8 @@ public interface IspitService {
     IspitDto createIspit(IspitCreate ispitCreate);
 
     IspitDto updateIspit(IspitUpdate ispitUpdate);
-
     IspitDto deleteOcjena(Integer predmetId, Integer ispitId, Integer korisnikId);
     IspitDto createOcjena(OcjenaCreate ocjenaCreate);
+
     IspitDto updateOcjena(OcjenaCreate ocjenaCreate);
 }

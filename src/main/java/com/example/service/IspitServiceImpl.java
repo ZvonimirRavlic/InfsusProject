@@ -1,15 +1,13 @@
 package com.example.service;
 
 import com.example.dao.*;
-import com.example.dto.IspitCreate;
-import com.example.dto.IspitDto;
-import com.example.dto.IspitUpdate;
-import com.example.dto.OcjenaCreate;
+import com.example.dto.*;
 import com.example.entity.*;
 import com.example.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IspitServiceImpl implements IspitService {
@@ -21,6 +19,7 @@ public class IspitServiceImpl implements IspitService {
     private final UcenikRepostory ucenikRepostory;
     private final IzostanakRepository izostanakRepository;
     private final Mapper mapper;
+    private final RazredRepository razredRepository;
 
     public IspitServiceImpl(IspitRepository ispitRepository,
                             PiseRepository piseRepository,
@@ -28,7 +27,8 @@ public class IspitServiceImpl implements IspitService {
                             PredajeRepository predajeRepository,
                             UcenikRepostory ucenikRepostory,
                             IzostanakRepository izostanakRepository,
-                            Mapper mapper) {
+                            Mapper mapper,
+                            RazredRepository razredRepository) {
 
         this.ispitRepository = ispitRepository;
         this.piseRepository = piseRepository;
@@ -37,8 +37,15 @@ public class IspitServiceImpl implements IspitService {
         this.ucenikRepostory = ucenikRepostory;
         this.izostanakRepository = izostanakRepository;
         this.mapper = mapper;
+        this.razredRepository = razredRepository;
     }
 
+
+    @Override
+    public List<IspitiResp> getIspiti() {
+        final List<Ispit> ispiti = ispitRepository.findAll();
+        return mapper.mapIspiti(ispiti);
+    }
 
     @Override
     public IspitDto getIspit(Integer predmetId, Integer ispitId) {

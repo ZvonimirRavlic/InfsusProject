@@ -41,6 +41,11 @@ public class ControlerImpl implements Controler {
     }
 
     @Override
+    public List<IspitiResp> getIspiti() {
+        return ispitService.getIspiti();
+    }
+
+    @Override
     public IspitDto getIspit(Integer predmetId, Integer ispitId) {
         return ispitService.getIspit(predmetId, ispitId);
     }
