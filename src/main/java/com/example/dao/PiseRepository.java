@@ -25,5 +25,6 @@ public interface PiseRepository extends JpaRepository<Piše, PišeId> {
     List<Piše> findOcjeneNaDatumZaUcenika(LocalDate datum, Integer korisnikId);
 
 
-
+    @Override
+    boolean existsById(PišeId pišeId);
 }

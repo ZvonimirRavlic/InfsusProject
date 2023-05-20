@@ -195,6 +195,10 @@ public class IspitServiceImpl implements IspitService {
         piseId.setIspitId(ocjenaCreate.getIspitId());
         piseId.setKorisnikId(ocjenaCreate.getKorisnikId());
 
+        if (piseRepository.existsById(piseId)){
+            throw new RuntimeException("Ucenik kojem zelite unjeti ocjenu vec ima ocjenu!");
+        }
+
         final Piše ocjena = new Piše();
         ocjena.setId(piseId);
         ocjena.setKorisnikId(ucenikRepostory.findById(ocjenaCreate.getKorisnikId()).orElseThrow(() -> {
@@ -216,7 +220,7 @@ public class IspitServiceImpl implements IspitService {
             throw new RuntimeException("Nisu popunjena sva polja za azuriranje ocjene!");
         }
 
-        if (!Objects.equals(korisnikId, ocjenaCreate.getKorisnikId())) {
+        if (korisnikId != ocjenaCreate.getKorisnikId()) {
             final PišeId piseId = new PišeId();
             piseId.setPredmetId(predmetId);
             piseId.setIspitId(ispitId1);
