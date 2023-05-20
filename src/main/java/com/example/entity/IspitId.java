@@ -16,7 +16,7 @@ public class IspitId implements Serializable {
     @SequenceGenerator(
             name = "ispit_id_seq",
             sequenceName = "ispit_id_seq",
-            allocationSize=1
+            allocationSize = 1
     )
     @Column(name = "ispitid", nullable = false)
     private Integer ispitId;

@@ -1,12 +1,8 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 public class Ispit {
@@ -16,7 +12,6 @@ public class Ispit {
 
     @MapsId("name=predmetid")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "predmetid", nullable = false)
     private Predmet predmetid;
 

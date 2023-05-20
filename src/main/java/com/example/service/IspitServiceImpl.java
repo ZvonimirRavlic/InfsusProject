@@ -7,6 +7,7 @@ import com.example.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class IspitServiceImpl implements IspitService {
@@ -124,13 +125,19 @@ public class IspitServiceImpl implements IspitService {
 
 
     @Override
-    public IspitDto updateIspit(IspitUpdate ispitUpdate) {
+    public IspitDto updateIspit(Integer predmetId, Integer ispitId1, IspitUpdate ispitUpdate) {
         if (ispitUpdate.getPredmetId() == null
                 || ispitUpdate.getIspitId() == null
                 || ispitUpdate.getDatum() == null
                 || ispitUpdate.getNapomena() == null
                 || ispitUpdate.getVrsta() == null) {
             throw new RuntimeException("Nisu popunjena sva polja za azuriranje ispita!");
+        }
+        if (!Objects.equals(predmetId, ispitUpdate.getPredmetId())) {
+            final IspitId ispitId = new IspitId();
+            ispitId.setIspitId(ispitId1);
+            ispitId.setPredmetId(predmetId);
+            ispitRepository.deleteById(ispitId);
         }
         final IspitId ispitId = new IspitId();
         ispitId.setIspitId(ispitUpdate.getIspitId());
@@ -176,10 +183,10 @@ public class IspitServiceImpl implements IspitService {
         final Ispit ispit = ispitRepository.findById(ispitId)
                 .orElseThrow(() -> new RuntimeException("Ne postoji ispit za koji hocete unjeti ocjenu!"));
 
-        if (izostanakRepository.existsByDatumAndKorisnikId_IdAndPredmetid_Id(ispit.getDatum(), ocjenaCreate.getKorisnikId(), ocjenaCreate.getPredmetId())){
+        if (izostanakRepository.existsByDatumAndKorisnikId_IdAndPredmetid_Id(ispit.getDatum(), ocjenaCreate.getKorisnikId(), ocjenaCreate.getPredmetId())) {
             throw new RuntimeException("Ne možete unjeti ocjenu učeniku koji nije bio prisutan na satu!");
         }
-        if (piseRepository.findOcjeneNaDatumZaUcenika(ispit.getDatum(), ocjenaCreate.getKorisnikId()).size() >=2){
+        if (piseRepository.findOcjeneNaDatumZaUcenika(ispit.getDatum(), ocjenaCreate.getKorisnikId()).size() >= 2) {
             throw new RuntimeException("Ne možete unijeti ocjenu učeniku jer je ocijenjen već 2 puta danas!");
         }
 
@@ -200,7 +207,7 @@ public class IspitServiceImpl implements IspitService {
     }
 
     @Override
-    public IspitDto updateOcjena(OcjenaCreate ocjenaCreate) {
+    public IspitDto updateOcjena(Integer predmetId, Integer ispitId1, Integer korisnikId, OcjenaCreate ocjenaCreate) {
         if (ocjenaCreate.getOcjena() == null
                 || ocjenaCreate.getIspitId() == null
                 || ocjenaCreate.getKorisnikId() == null
@@ -209,16 +216,24 @@ public class IspitServiceImpl implements IspitService {
             throw new RuntimeException("Nisu popunjena sva polja za azuriranje ocjene!");
         }
 
+        if (!Objects.equals(korisnikId, ocjenaCreate.getKorisnikId())) {
+            final PišeId piseId = new PišeId();
+            piseId.setPredmetId(predmetId);
+            piseId.setIspitId(ispitId1);
+            piseId.setKorisnikId(korisnikId);
+            piseRepository.deleteById(piseId);
+        }
+
         final IspitId ispitId = new IspitId();
         ispitId.setIspitId(ocjenaCreate.getIspitId());
         ispitId.setPredmetId(ocjenaCreate.getPredmetId());
         final Ispit ispit = ispitRepository.findById(ispitId)
                 .orElseThrow(() -> new RuntimeException("Ne postoji ispit za koji hocete unjeti ocjenu!"));
 
-        if (izostanakRepository.existsByDatumAndKorisnikId_IdAndPredmetid_Id(ispit.getDatum(), ocjenaCreate.getKorisnikId(), ocjenaCreate.getPredmetId())){
+        if (izostanakRepository.existsByDatumAndKorisnikId_IdAndPredmetid_Id(ispit.getDatum(), ocjenaCreate.getKorisnikId(), ocjenaCreate.getPredmetId())) {
             throw new RuntimeException("Ne možete unjeti ocjenu učeniku koji nije bio prisutan na satu!");
         }
-        if (piseRepository.findOcjeneNaDatumZaUcenika(ispit.getDatum(), ocjenaCreate.getKorisnikId()).size() >=2){
+        if (piseRepository.findOcjeneNaDatumZaUcenika(ispit.getDatum(), ocjenaCreate.getKorisnikId()).size() >= 2) {
             throw new RuntimeException("Ne možete unijeti ocjenu učeniku jer je ocijenjen već 2 puta danas!");
         }
 

@@ -22,9 +22,11 @@ public interface IspitService {
 
     IspitDto createIspit(IspitCreate ispitCreate);
 
-    IspitDto updateIspit(IspitUpdate ispitUpdate);
+    IspitDto updateIspit(Integer predmetId, Integer ispitId, IspitUpdate ispitUpdate);
+
     IspitDto deleteOcjena(Integer predmetId, Integer ispitId, Integer korisnikId);
+
     IspitDto createOcjena(OcjenaCreate ocjenaCreate);
 
-    IspitDto updateOcjena(OcjenaCreate ocjenaCreate);
+    IspitDto updateOcjena(Integer predmetId, Integer ispitId, Integer korisnikId, OcjenaCreate ocjenaCreate);
 }

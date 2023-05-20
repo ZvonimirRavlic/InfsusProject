@@ -71,8 +71,8 @@ public class ControlerImpl implements Controler {
     }
 
     @Override
-    public IspitDto updateIspit(IspitUpdate ispitUpdate) {
-        return ispitService.updateIspit(ispitUpdate);
+    public IspitDto updateIspit(Integer predmetId, Integer ispitId, IspitUpdate ispitUpdate) {
+        return ispitService.updateIspit(predmetId, ispitId, ispitUpdate);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class ControlerImpl implements Controler {
     }
 
     @Override
-    public IspitDto updateOcjena(OcjenaCreate ocjenaCreate) {
-        return ispitService.updateOcjena(ocjenaCreate);
+    public IspitDto updateOcjena(Integer predmetId, Integer ispitId, Integer korisnikId, OcjenaCreate ocjenaCreate) {
+        return ispitService.updateOcjena(predmetId, ispitId, korisnikId, ocjenaCreate);
     }
 
 }

@@ -40,8 +40,8 @@ public interface Controler {
     @PostMapping(value = "/ispiti", consumes = MediaType.APPLICATION_JSON_VALUE)
     IspitDto createIspit(@RequestBody IspitCreate ispitCreate);
 
-    @PutMapping(value = "/ispiti", consumes = MediaType.APPLICATION_JSON_VALUE)
-    IspitDto updateIspit(@RequestBody IspitUpdate ispitUpdate);
+    @PutMapping(value = "/ispiti/{predmetId}/{ispitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    IspitDto updateIspit(@PathVariable Integer predmetId, @PathVariable Integer ispitId, @RequestBody IspitUpdate ispitUpdate);
 
     @DeleteMapping("/ispiti/{predmetId}/{ispitId}/{korisnikId}")
     IspitDto deleteOcjena(@PathVariable Integer predmetId, @PathVariable Integer ispitId, @PathVariable Integer korisnikId);
@@ -49,6 +49,6 @@ public interface Controler {
     @PostMapping(value = "/ispiti/ocjena", consumes = MediaType.APPLICATION_JSON_VALUE)
     IspitDto createOcjena(@RequestBody OcjenaCreate ocjenaCreate);
 
-    @PutMapping(value = "/ispiti/ocjena", consumes = MediaType.APPLICATION_JSON_VALUE)
-    IspitDto updateOcjena(@RequestBody OcjenaCreate ocjenaCreate);
+    @PutMapping(value = "/ispiti/ocjena{predmetId}/{ispitId}/{korisnikId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    IspitDto updateOcjena(@PathVariable Integer predmetId, @PathVariable Integer ispitId, @PathVariable Integer korisnikId, @RequestBody OcjenaCreate ocjenaCreate);
 }
