@@ -49,6 +49,6 @@ public interface Controler {
     @PostMapping(value = "/ispiti/ocjena", consumes = MediaType.APPLICATION_JSON_VALUE)
     IspitDto createOcjena(@RequestBody OcjenaCreate ocjenaCreate);
 
-    @PutMapping(value = "/ispiti/ocjena{predmetId}/{ispitId}/{korisnikId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/ispiti/ocjena/{predmetId}/{ispitId}/{korisnikId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     IspitDto updateOcjena(@PathVariable Integer predmetId, @PathVariable Integer ispitId, @PathVariable Integer korisnikId, @RequestBody OcjenaCreate ocjenaCreate);
 }
