@@ -3,7 +3,6 @@ package com.example.dto;
 public class OcjenaCreate {
 
     private Integer ispitId;
-
     private Integer predmetId;
     private Integer korisnikId;
     private Integer ocjena;

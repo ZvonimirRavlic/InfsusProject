@@ -10,6 +10,8 @@ public class IspitiResp {
     public String vrsta;
     public LocalDate datum;
     public String napomena;
+    public String nazivGodina;
+
 
     public IspitId getIspitId() {
         return ispitId;
@@ -42,4 +44,13 @@ public class IspitiResp {
     public void setNapomena(String napomena) {
         this.napomena = napomena;
     }
+
+    public String getNazivGodina() {
+        return nazivGodina;
+    }
+
+    public void setNazivGodina(String nazivGodina) {
+        this.nazivGodina = nazivGodina;
+    }
+
 }
