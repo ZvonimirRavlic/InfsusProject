@@ -7,7 +7,6 @@ import com.example.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class IspitServiceImpl implements IspitService {
@@ -15,36 +14,30 @@ public class IspitServiceImpl implements IspitService {
     private final IspitRepository ispitRepository;
     private final PiseRepository piseRepository;
     private final PredmetRepository predmetRepository;
-    private final PredajeRepository predajeRepository;
     private final UcenikRepostory ucenikRepostory;
     private final IzostanakRepository izostanakRepository;
     private final Mapper mapper;
-    private final RazredRepository razredRepository;
 
     public IspitServiceImpl(IspitRepository ispitRepository,
                             PiseRepository piseRepository,
                             PredmetRepository predmetRepository,
-                            PredajeRepository predajeRepository,
                             UcenikRepostory ucenikRepostory,
                             IzostanakRepository izostanakRepository,
-                            Mapper mapper,
-                            RazredRepository razredRepository) {
+                            Mapper mapper) {
 
         this.ispitRepository = ispitRepository;
         this.piseRepository = piseRepository;
         this.predmetRepository = predmetRepository;
-        this.predajeRepository = predajeRepository;
         this.ucenikRepostory = ucenikRepostory;
         this.izostanakRepository = izostanakRepository;
         this.mapper = mapper;
-        this.razredRepository = razredRepository;
     }
 
 
     @Override
     public List<IspitiResp> getIspiti() {
         final List<Ispit> ispiti = ispitRepository.findAll();
-        return mapper.mapIspiti(ispiti);
+        return mapper.map(ispiti);
     }
 
     @Override

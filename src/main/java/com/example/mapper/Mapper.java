@@ -10,13 +10,15 @@ import java.util.List;
 @Component
 public class Mapper {
 
-    public List<IspitiResp> mapIspiti(List<Ispit> ispiti) {
+    public List<IspitiResp> map(List<Ispit> ispiti) {
         return ispiti.stream().map(ispit -> {
             final IspitiResp ispitResp = new IspitiResp();
             ispitResp.setIspitId(ispit.getId());
             ispitResp.setNapomena(ispit.getNapomena());
             ispitResp.setVrsta(ispit.getVrsta());
             ispitResp.setDatum(ispit.getDatum());
+            ispitResp.setNazivGodina(ispit.getPredmetid().getNaziv()
+                    + " " + ispit.getPredmetid().getGodina());
             return ispitResp;
         }).toList();
     }

@@ -1,6 +1,8 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "piše")
@@ -16,6 +18,7 @@ public class Piše {
     private Ucenik korisnikId;
 
     @Column(name = "ispitid", insertable = false, updatable = false, nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Integer ispitId;
     @Column(name = "predmetid", insertable = false, updatable = false, nullable = false)
     private Integer predmetId;
