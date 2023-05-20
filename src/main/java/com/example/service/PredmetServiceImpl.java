@@ -50,6 +50,7 @@ public class PredmetServiceImpl implements PredmetService {
 
     @Override
     public List<PredmetDto> updatePredmet(PredmetUpdate predmetUpdate) {
+        System.out.println(predmetUpdate.toString());
         if (predmetUpdate.getGodina() == null
                 || predmetUpdate.getNaziv() == null
                 || predmetUpdate.getPredmetId() == null) {

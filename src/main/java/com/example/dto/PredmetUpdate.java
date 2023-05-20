@@ -32,4 +32,12 @@ public class PredmetUpdate {
         this.godina = godina;
     }
 
+    @Override
+    public String toString() {
+        return "PredmetUpdate{" +
+                "predmetId=" + predmetId +
+                ", naziv='" + naziv + '\'' +
+                ", godina=" + godina +
+                '}';
+    }
 }
