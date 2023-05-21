@@ -25,8 +25,7 @@ public class PredmetServiceImpl implements PredmetService {
     public List<PredmetDto> getPredmete() {
         final List<Predmet> predmeti = predmetRepository.findAll();
         return predmeti.stream()
-                .map((mapper::map))
-                .toList();
+                .map((mapper::map)).sorted().toList();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class PredmetServiceImpl implements PredmetService {
     public List<PredmetDto> createPredmet(PredmetCreate predmetCreate) {
         if (predmetCreate.getGodina() == null
                 || predmetCreate.getNaziv() == null) {
-            throw new RuntimeException("Nisu popunjena sva polja za kreiranje predmeta");
+            throw new RuntimeException("Nisu popunjena sva polja za kreiranje predmeta!");
         }
         final Predmet predmet = new Predmet();
         predmet.setNaziv(predmetCreate.getNaziv());
@@ -54,7 +53,7 @@ public class PredmetServiceImpl implements PredmetService {
         if (predmetUpdate.getGodina() == null
                 || predmetUpdate.getNaziv() == null
                 || predmetUpdate.getPredmetId() == null) {
-            throw new RuntimeException("Nisu popunjena sva polja za azuriranje predmeta");
+            throw new RuntimeException("Nisu popunjena sva polja za azuriranje predmeta!");
         }
         final Predmet predmet = new Predmet();
         predmet.setId(predmetUpdate.getPredmetId());

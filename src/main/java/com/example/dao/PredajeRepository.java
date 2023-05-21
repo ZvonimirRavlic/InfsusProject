@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PredajeRepository extends JpaRepository<Predaje, PredajeId> {
-    List<Predaje> findByKorisnikId_Id(Integer id);
 }

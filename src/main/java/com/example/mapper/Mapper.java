@@ -65,17 +65,6 @@ public class Mapper {
         ucenikDto.setImePrezime(ucenik.getKorisnik().getIme() + " " + ucenik.getKorisnik().getPrezime());
         return ucenikDto;
     }
-
-    private PredmetDto map(final Predaje predaje) {
-        final Predmet predmet = predaje.getPredmetid();
-        final PredmetDto predmetDto = new PredmetDto();
-        predmetDto.setPredmetId(predmet.getId());
-        predmetDto.setNaziv(predmet.getNaziv());
-        predmetDto.setGodina(predmet.getGodina());
-        predmetDto.setNazivGodina(predmet.getNaziv() + " " + predmet.getGodina());
-        return predmetDto;
-    }
-
     public PredmetDto map(final Predmet predmet) {
         final PredmetDto predmetDto = new PredmetDto();
         predmetDto.setPredmetId(predmet.getId());

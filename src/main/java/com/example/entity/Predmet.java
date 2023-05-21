@@ -1,12 +1,6 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 public class Predmet {
@@ -18,7 +12,7 @@ public class Predmet {
     @SequenceGenerator(
             name = "predmet_id_seq",
             sequenceName = "predmet_id_seq",
-            allocationSize=1
+            allocationSize = 1
     )
     @Column(name = "predmetid", nullable = false)
     private Integer id;
@@ -26,6 +20,7 @@ public class Predmet {
     private String naziv;
     @Column(name = "godina", nullable = false)
     private Integer godina;
+
     public String getNaziv() {
         return naziv;
     }

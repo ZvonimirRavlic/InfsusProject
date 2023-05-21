@@ -71,9 +71,6 @@ public class IspitServiceImpl implements IspitService {
                 .orElseThrow(() -> new RuntimeException("Ne postoji prosli ispit!"));
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId, predmetId);
         final List<Predmet> predmeti = predmetRepository.findAll();
-        if (predmeti.isEmpty()) {
-            throw new RuntimeException("Nema predmeta!");
-        }
         final List<Ucenik> uceniciNaPredmetu = ucenikRepostory.findUcenikeNaPredmetu(predmetId);
         return mapper.map(ispit, ocjene, predmeti, uceniciNaPredmetu);
     }
@@ -133,15 +130,24 @@ public class IspitServiceImpl implements IspitService {
                 || ispitUpdate.getVrsta() == null) {
             throw new RuntimeException("Nisu popunjena sva polja za azuriranje ispita!");
         }
+        final IspitId ispitIdStari = new IspitId();
+        ispitIdStari.setIspitId(ispitId1);
+        ispitIdStari.setPredmetId(predmetId);
+
+        ispitRepository.findById(ispitIdStari)
+                .orElseThrow(() -> new RuntimeException("Ne postoji ispit koji zelite urediti!"));
+
         if (!Objects.equals(predmetId, ispitUpdate.getPredmetId())) {
-            final IspitId ispitId = new IspitId();
-            ispitId.setIspitId(ispitId1);
-            ispitId.setPredmetId(predmetId);
-            ispitRepository.deleteById(ispitId);
+            final IspitId ispitId2 = new IspitId();
+            ispitId2.setIspitId(ispitId1);
+            ispitId2.setPredmetId(predmetId);
+            ispitRepository.deleteById(ispitId2);
         }
+
         final IspitId ispitId = new IspitId();
         ispitId.setIspitId(ispitUpdate.getIspitId());
         ispitId.setPredmetId(ispitUpdate.getPredmetId());
+
         final Ispit ispit = new Ispit();
         ispit.setId(ispitId);
         ispit.setDatum(ispitUpdate.getDatum());
@@ -149,7 +155,7 @@ public class IspitServiceImpl implements IspitService {
         ispit.setVrsta(ispitUpdate.getVrsta());
         ispit.setPredmetid(predmetRepository.findById(ispitUpdate.getPredmetId())
                 .orElseThrow(() ->
-                        new RuntimeException("Ne postoji predmet za koji zelite stvoriti ispit!")));
+                        new RuntimeException("Ne postoji predmet za koji zelite urediti ispit!")));
         ispitRepository.saveAndFlush(ispit);
         final List<Piše> ocjene = piseRepository.findByIspitIdAndPredmetId(ispitId.getIspitId(), ispitId.getPredmetId());
         final List<Predmet> predmeti = predmetRepository.findAll();
@@ -195,7 +201,7 @@ public class IspitServiceImpl implements IspitService {
         piseId.setIspitId(ocjenaCreate.getIspitId());
         piseId.setKorisnikId(ocjenaCreate.getKorisnikId());
 
-        if (piseRepository.existsById(piseId)){
+        if (piseRepository.existsById(piseId)) {
             throw new RuntimeException("Ucenik kojem zelite unjeti ocjenu vec ima ocjenu!");
         }
 
@@ -257,5 +263,4 @@ public class IspitServiceImpl implements IspitService {
         piseRepository.saveAndFlush(ocjena);
         return getIspit(ocjenaCreate.getPredmetId(), ocjenaCreate.getIspitId());
     }
-
 }
